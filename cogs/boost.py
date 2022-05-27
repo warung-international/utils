@@ -1,10 +1,10 @@
 import time
 from datetime import datetime
 
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
-orange = nextcord.Colour.blurple()
+orange = discord.Colour.blurple()
 
 
 class boost(commands.Cog):
@@ -22,7 +22,7 @@ class boost(commands.Cog):
             "premium_guild_tier_3",
         ]:
             if message.guild.id == 922523614828433419:
-                embed = nextcord.Embed(
+                embed = discord.Embed(
                     colour=orange,
                     description=f"<:booster:914737485924409405> **{message.author.display_name}**, Terima Kasih sudah mem-boost server ini! :pray:",
                 )

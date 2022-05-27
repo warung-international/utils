@@ -2,10 +2,10 @@ import datetime
 import os
 
 import aiohttp
-import nextcord
+import discord
 from dotenv import load_dotenv
-from nextcord import Webhook
-from nextcord.ext import commands
+from discord import Webhook, AsyncWebhookAdapter
+from discord.ext import commands
 from pymongo import MongoClient
 
 load_dotenv()
@@ -30,28 +30,28 @@ class events(commands.Cog):
                 else:
                     levelling.update_one(
                         {"id": before.id},
-                        {"$set": {"image_url": str(after.display_avatar)}},
+                        {"$set": {"image_url": str(after.avatar_url)}},
                     )
-                embed = nextcord.Embed(
+                embed = discord.Embed(
                     description=f"{before.mention} **Avatar Changed**",
-                    colour=nextcord.Colour.blurple(),
+                    colour=discord.Colour.blurple(),
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=before.display_avatar,
-                    url=f"https://discord.com/users/{before.author.id}",
+                    icon_url=before.avatar_url,
+                    url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.display_avatar)
+                embed.set_thumbnail(url=after.avatar_url)
                 embed.add_field(
                     name=f"Avatar",
-                    value=f"[before]({before.display_avatar}) -> [after]({after.display_avatar})",
+                    value=f"[`before`]({before.avatar_url}) -> [`after`]({after.avatar_url})",
                     inline=True,
                 )
                 embed.set_footer(text=f"ID: {before.id}")
                 embed.timestamp = datetime.datetime.utcnow()
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(
-                        os.getenv("WEBHOOK_TOKEN"), session=session
+                        os.getenv("WEBHOOK_TOKEN"), adapter=AsyncWebhookAdapter(session)
                     )
                     await webhook.send(embed=embed)
 
@@ -63,23 +63,23 @@ class events(commands.Cog):
                     levelling.update_one(
                         {"id": before.id}, {"$set": {"username": after.name}}
                     )
-                embed = nextcord.Embed(
+                embed = discord.Embed(
                     description=f"{before.mention} **Username Changed**",
-                    colour=nextcord.Colour.blurple(),
+                    colour=discord.Colour.blurple(),
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=after.display_avatar,
-                    url=f"https://discord.com/users/{before.author.id}",
+                    icon_url=after.avatar_url,
+                    url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.display_avatar)
+                embed.set_thumbnail(url=after.avatar_url)
                 embed.add_field(name=f"Before:", value=f"`{before.name}`", inline=True)
                 embed.add_field(name=f"After:", value=f"`{after.name}`", inline=True)
                 embed.set_footer(text=f"ID: {before.id}")
                 embed.timestamp = datetime.datetime.utcnow()
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(
-                        os.getenv("WEBHOOK_TOKEN"), session=session
+                        os.getenv("WEBHOOK_TOKEN"), adapter=AsyncWebhookAdapter(session)
                     )
                     await webhook.send(embed=embed)
 
@@ -91,16 +91,16 @@ class events(commands.Cog):
                     levelling.update_one(
                         {"id": before.id}, {"$set": {"discrim": after.discriminator}}
                     )
-                embed = nextcord.Embed(
+                embed = discord.Embed(
                     description=f"{before.mention} **Discriminator Changed**",
-                    colour=nextcord.Colour.blurple(),
+                    colour=discord.Colour.blurple(),
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=after.display_avatar,
-                    url=f"https://discord.com/users/{before.author.id}",
+                    icon_url=after.avatar_url,
+                    url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.display_avatar)
+                embed.set_thumbnail(url=after.avatar_url)
                 embed.add_field(
                     name=f"Before:", value=f"`#{before.discriminator}`", inline=True
                 )
@@ -111,7 +111,7 @@ class events(commands.Cog):
                 embed.timestamp = datetime.datetime.utcnow()
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(
-                        os.getenv("WEBHOOK_TOKEN"), session=session
+                        os.getenv("WEBHOOK_TOKEN"), adapter=AsyncWebhookAdapter(session)
                     )
                     await webhook.send(embed=embed)
 

@@ -2,15 +2,16 @@ import os
 import sys
 
 import aiohttp
-import nextcord
-import nextcord.utils
+import discord
+import discord.utils
 from dotenv import load_dotenv
-from nextcord import Webhook
-from nextcord.ext import commands
+from discord import Webhook
+from discord.ext import commands
 
 load_dotenv()
-intents = nextcord.Intents().all()
-client = commands.Bot()
+intents = discord.Intents().all()
+intents.members = True
+client = commands.Bot(command_prefix=":", intents=intents)
 client.remove_command("help")
 
 
@@ -21,7 +22,7 @@ for filename in os.listdir("./cogs"):
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=nextcord.Status.offline)
+    await client.change_presence(status=discord.Status.offline)
     print(f"Utilities is ready for action")
 
 
