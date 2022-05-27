@@ -1,0 +1,5 @@
+nextcord
+pymongo
+dnspython
+python-dotenv
+aiohttp
