@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  bot:
+    restart: on-failure
+    image: ghcr.io/warung-international/utils:master
+    env_file: .env
