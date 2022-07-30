@@ -25,9 +25,7 @@ class events(commands.Cog):
         if guild.get_member(before.id):
             if before.avatar != after.avatar:
                 stats = levelling.find_one({"id": before.id})
-                if stats is None:
-                    return
-                else:
+                if stats is not None:
                     levelling.update_one(
                         {"id": before.id},
                         {"$set": {"image_url": str(after.avatar_url)}},
@@ -57,12 +55,14 @@ class events(commands.Cog):
 
             if before.name != after.name:
                 stats = levelling.find_one({"id": before.id})
-                if stats is None:
-                    return
-                else:
+                if stats is not None:
                     levelling.update_one(
                         {"id": before.id}, {"$set": {"username": after.name}}
                     )
+                    if after.nick is None:
+                        levelling.update_one(
+                            {"id": after.id}, {"$set": {"displayname": after.name}}
+                        )
                 embed = discord.Embed(
                     description=f"{before.mention} **Username Changed**",
                     colour=discord.Colour.blurple(),
@@ -85,9 +85,7 @@ class events(commands.Cog):
 
             if before.discriminator != after.discriminator:
                 stats = levelling.find_one({"id": before.id})
-                if stats is None:
-                    return
-                else:
+                if stats is not None:
                     levelling.update_one(
                         {"id": before.id}, {"$set": {"discrim": after.discriminator}}
                     )
