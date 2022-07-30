@@ -23,7 +23,7 @@ for filename in os.listdir("./cogs"):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.offline)
-    print(f"Utilities is ready for action")
+    print(f"Peradaban (Utilities) is ready for action!")
 
 
 client.run(os.getenv("BOT_TOKEN"))
