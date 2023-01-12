@@ -1,9 +1,9 @@
 import os
 import sys
 
-import aiohttp
 import discord
 import discord.utils
+import logging
 from dotenv import load_dotenv
 from discord import Webhook
 from discord.ext import commands
@@ -23,7 +23,7 @@ for filename in os.listdir("./cogs"):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.offline)
-    print(f"Peradaban (Utilities) is ready for action!")
+    logging.info(f"Peradaban (Utilities) is ready for action!")
 
 
 client.run(os.getenv("BOT_TOKEN"))
