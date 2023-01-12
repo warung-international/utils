@@ -20,7 +20,7 @@ levelling = cluster["dagelan"]["levelling"]
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online)
+    await client.change_presence(status=discord.Status.offline)
     logging.info(f"Peradaban (Utilities) is ready for action!")
 
 
