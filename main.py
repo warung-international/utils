@@ -24,8 +24,8 @@ async def on_ready():
 
 @client.event
 async def on_user_update(before, after):
-    guild = client.get_guild(922523614828433419)
-    channel = guild.get_channel(960731844066807838)
+    guild = client.get_guild(os.getenv("GUILD_ID"))
+    channel = guild.get_channel(os.getenv("CHANNEL_ID"))
     if guild.get_member(before.id):
         if not before.bot:
             if before.display_avatar != after.display_avatar:
