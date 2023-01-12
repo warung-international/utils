@@ -28,12 +28,12 @@ async def on_user_update(before, after):
     channel = guild.get_channel(960731844066807838)
     if guild.get_member(before.id):
         if not before.bot:
-            if before.avatar != after.avatar:
+            if before.display_avatar != after.display_avatar:
                 stats = levelling.find_one({"id": before.id})
                 if stats is not None:
                     levelling.update_one(
                         {"id": before.id},
-                        {"$set": {"image_url": str(after.avatar)}},
+                        {"$set": {"image_url": str(after.display_avatar)}},
                     )
                 embed = discord.Embed(
                     description=f"{before.mention} **Avatar Changed**",
@@ -41,13 +41,13 @@ async def on_user_update(before, after):
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=before.avatar,
+                    icon_url=before.display_avatar,
                     url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.avatar)
+                embed.set_thumbnail(url=after.display_avatar)
                 embed.add_field(
                     name=f"Avatar",
-                    value=f"[`before`]({before.avatar}) -> [`after`]({after.avatar})",
+                    value=f"[`before`]({before.display_avatar}) -> [`after`]({after.display_avatar})",
                     inline=True,
                 )
                 embed.set_footer(text=f"ID: {before.id}")
@@ -70,10 +70,10 @@ async def on_user_update(before, after):
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=after.avatar,
+                    icon_url=after.display_avatar,
                     url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.avatar)
+                embed.set_thumbnail(url=after.display_avatar)
                 embed.add_field(
                     name=f"Before:", value=f"`{before.name}`", inline=True
                 )
@@ -97,10 +97,10 @@ async def on_user_update(before, after):
                 )
                 embed.set_author(
                     name=f"{before.name}#{before.discriminator}",
-                    icon_url=after.avatar,
+                    icon_url=after.display_avatar,
                     url=f"https://discord.com/users/{before.id}",
                 )
-                embed.set_thumbnail(url=after.avatar)
+                embed.set_thumbnail(url=after.display_avatar)
                 embed.add_field(
                     name=f"Before:", value=f"`#{before.discriminator}`", inline=True
                 )
