@@ -1,10 +1,8 @@
 import datetime
 import os
 
-import aiohttp
 import discord
 from dotenv import load_dotenv
-from discord import Webhook, AsyncWebhookAdapter
 from discord.ext import commands
 from pymongo import MongoClient
 
@@ -22,6 +20,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_user_update(self, before, after):
         guild = self.client.get_guild(922523614828433419)
+        channel = guild.get_channel(960731844066807838)
         if guild.get_member(before.id):
             if not before.bot:
                 if before.avatar != after.avatar:
@@ -48,12 +47,7 @@ class events(commands.Cog):
                     )
                     embed.set_footer(text=f"ID: {before.id}")
                     embed.timestamp = datetime.datetime.utcnow()
-                    async with aiohttp.ClientSession() as session:
-                        webhook = Webhook.from_url(
-                            os.getenv("WEBHOOK_TOKEN"),
-                            adapter=AsyncWebhookAdapter(session),
-                        )
-                        await webhook.send(embed=embed)
+                    await channel.send(embed=embed)
 
                 if before.name != after.name:
                     stats = levelling.find_one({"id": before.id})
@@ -83,12 +77,7 @@ class events(commands.Cog):
                     )
                     embed.set_footer(text=f"ID: {before.id}")
                     embed.timestamp = datetime.datetime.utcnow()
-                    async with aiohttp.ClientSession() as session:
-                        webhook = Webhook.from_url(
-                            os.getenv("WEBHOOK_TOKEN"),
-                            adapter=AsyncWebhookAdapter(session),
-                        )
-                        await webhook.send(embed=embed)
+                    await channel.send(embed=embed)
 
                 if before.discriminator != after.discriminator:
                     stats = levelling.find_one({"id": before.id})
@@ -115,12 +104,7 @@ class events(commands.Cog):
                     )
                     embed.set_footer(text=f"ID: {before.id}")
                     embed.timestamp = datetime.datetime.utcnow()
-                    async with aiohttp.ClientSession() as session:
-                        webhook = Webhook.from_url(
-                            os.getenv("WEBHOOK_TOKEN"),
-                            adapter=AsyncWebhookAdapter(session),
-                        )
-                        await webhook.send(embed=embed)
+                    await channel.send(embed=embed)
 
 
 def setup(client):
