@@ -1,4 +1,4 @@
-discord.py==1.7.3
-pymongo
+discord.py
 dnspython
+pymongo
 python-dotenv

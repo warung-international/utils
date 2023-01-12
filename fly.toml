@@ -1,0 +1,5 @@
+# fly.toml file generated for solitary-darkness-8394 on 2023-01-12T11:56:32+07:00
+
+app = "solitary-darkness-8394"
+kill_signal = "SIGINT"
+kill_timeout = 5
