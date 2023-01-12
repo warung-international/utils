@@ -17,10 +17,12 @@ cluster = MongoClient(os.getenv("MONGODB_URL"))
 
 levelling = cluster["dagelan"]["levelling"]
 
+
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online)
     logging.info(f"Peradaban (Utilities) is ready for action!")
+
 
 @client.event
 async def on_user_update(before, after):
@@ -74,12 +76,8 @@ async def on_user_update(before, after):
                     url=f"https://discord.com/users/{before.id}",
                 )
                 embed.set_thumbnail(url=after.display_avatar)
-                embed.add_field(
-                    name=f"Before:", value=f"`{before.name}`", inline=True
-                )
-                embed.add_field(
-                    name=f"After:", value=f"`{after.name}`", inline=True
-                )
+                embed.add_field(name=f"Before:", value=f"`{before.name}`", inline=True)
+                embed.add_field(name=f"After:", value=f"`{after.name}`", inline=True)
                 embed.set_footer(text=f"ID: {before.id}")
                 embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=embed)

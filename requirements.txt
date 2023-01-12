@@ -1,4 +1,4 @@
 discord.py
-pymongo
 dnspython
+pymongo
 python-dotenv
